@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Repository
 public class BookRepository implements ProjectRepository<Book> {
@@ -29,6 +30,39 @@ public class BookRepository implements ProjectRepository<Book> {
     public boolean removeItemById(Integer bookIdToRemove) {
         for (Book book : retreiveAll()) {
             if (book.getId().equals(bookIdToRemove)) {
+                logger.info("remove book completed: " + book);
+                return repo.remove(book);
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean removeItemByAuthor(String bookAuthorToRemove){
+        for (Book book : retreiveAll()) {
+            if (book.getAuthor().toLowerCase(Locale.ROOT).equals(bookAuthorToRemove.toLowerCase(Locale.ROOT))) {
+                logger.info("remove book completed: " + book);
+                return repo.remove(book);
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean removeItemByTitle(String bookTitleToRemove){
+        for (Book book : retreiveAll()) {
+            if (book.getTitle().toLowerCase(Locale.ROOT).equals(bookTitleToRemove.toLowerCase(Locale.ROOT))) {
+                logger.info("remove book completed: " + book);
+                return repo.remove(book);
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean removeItemBySize(Integer bookSizeToRemove){
+        for (Book book : retreiveAll()) {
+            if (book.getSize().equals(bookSizeToRemove)) {
                 logger.info("remove book completed: " + book);
                 return repo.remove(book);
             }

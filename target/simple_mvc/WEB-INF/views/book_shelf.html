@@ -50,7 +50,7 @@
         </table>
     </form>
 
-    <form method="post" th:action="@{/books/remove}">
+    <form method="post" th:action="@{/books/remove-by-id}">
         <table>
             <tr>
                 <td>
@@ -61,6 +61,42 @@
                 </td>
             </tr>
         </table>
+    </form>
+    <form method="post" th:action="@{/books/remove-by-author}">
+        <table>
+        <tr>
+                <td>
+                    <input type="text" placeholder="author" th:name="bookAuthorToRemove">
+                </td>
+                <td>
+                    <input type="submit" value="remove">
+                </td>
+            </tr>
+    </table>
+    </form>
+    <form method="post" th:action="@{/books/remove-by-title}">
+        <table>
+            <tr>
+                <td>
+                    <input type="text" placeholder="title" th:name="bookTitleToRemove">
+                </td>
+                <td>
+                    <input type="submit" value="remove">
+                </td>
+            </tr>
+    </table>
+    </form>
+    <form method="post" th:action="@{/books/remove-by-size}">
+        <table>
+            <tr>
+                <td>
+                    <input type="text" placeholder="size number" th:name="bookSizeToRemove">
+                </td>
+                <td>
+                    <input type="submit" value="remove">
+                </td>
+            </tr>
+    </table>
     </form>
 
 

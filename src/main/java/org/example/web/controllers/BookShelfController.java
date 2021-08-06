@@ -38,13 +38,38 @@ public class BookShelfController {
         return "redirect:/books/shelf";
     }
 
-    @PostMapping("/remove")
-    public String removeBook(@RequestParam(value = "bookIdToRemove") Integer bookIdToRemove) {
+    @PostMapping("/remove-by-id")
+    public String removeBookById(@RequestParam(value = "bookIdToRemove") Integer bookIdToRemove) {
         if (bookService.removeBookById(bookIdToRemove)) {
+            logger.info("Book removed by ID");
             return "redirect:/books/shelf";
         }
         else {
             return "redirect:/books/shelf";
         }
+    }
+
+    @PostMapping("/remove-by-authoe")
+    public String removeBookByAuthor(@RequestParam(value = "bookAuthorToRemove") String bookAuthorToRemove) {
+        if (bookService.removeBookByAuthor(bookAuthorToRemove)) {
+            logger.info("Book removed by Author");
+        }
+        return "redirect:/books/shelf";
+    }
+
+    @PostMapping("/remove-by-title")
+    public String removeBookByTitle(@RequestParam(value = "bookTitleToRemove") String bookTitleToRemove) {
+        if (bookService.removeBookByTitle(bookTitleToRemove)) {
+            logger.info("Book removed by Title");
+        }
+        return "redirect:/books/shelf";
+    }
+
+    @PostMapping("/remove-by-size")
+    public String removeBookBySize(@RequestParam(value = "bookSizeToRemove") Integer bookSizeToRemove) {
+        if (bookService.removeBookBySize(bookSizeToRemove)) {
+            logger.info("Book removed by Size");
+        }
+        return "redirect:/books/shelf";
     }
 }
