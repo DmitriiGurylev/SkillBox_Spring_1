@@ -21,10 +21,23 @@ public class BookService {
     }
 
     public void saveBook(Book book) {
+        if (book != null)
         bookRepo.store(book);
     }
 
     public boolean removeBookById(Integer bookIdToRemove) {
         return bookRepo.removeItemById(bookIdToRemove);
+    }
+
+    public boolean removeBookByAuthor(String bookAuthorToRemove) {
+        return bookRepo.removeItemByAuthor(bookAuthorToRemove);
+    }
+
+    public boolean removeBookByTitle(Integer bookTitleToRemove) {
+        return bookRepo.removeItemByTitle(bookTitleToRemove);
+    }
+
+    public boolean removeBookBySize(Integer bookSizeToRemove) {
+        return bookRepo.removeItemBySize(bookSizeToRemove);
     }
 }

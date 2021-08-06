@@ -42,8 +42,9 @@ public class BookShelfController {
     public String removeBook(@RequestParam(value = "bookIdToRemove") Integer bookIdToRemove) {
         if (bookService.removeBookById(bookIdToRemove)) {
             return "redirect:/books/shelf";
-        } else {
-            return "book_shelf";
+        }
+        else {
+            return "redirect:/books/shelf";
         }
     }
 }
