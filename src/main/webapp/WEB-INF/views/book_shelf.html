@@ -99,6 +99,45 @@
     </table>
     </form>
 
+    <form method="post" th:action="@{/books/filter-by-author}">
+        <table>
+            <tr>
+                <td>
+                    <input type="text" placeholder="author" th:name="bookAuthorToFilter">
+                </td>
+                <td>
+                    <input type="submit" value="filter">
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <form method="post" th:action="@{/books/filter-by-title}">
+        <table>
+            <tr>
+                <td>
+                    <input type="text" placeholder="author" th:name="bookTitleToFilter">
+                </td>
+                <td>
+                    <input type="submit" value="filter">
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <form method="post" th:action="@{/books/filter-by-size}">
+        <table>
+            <tr>
+                <td>
+                    <input type="text" placeholder="author" th:name="bookSizeToFilter">
+                </td>
+                <td>
+                    <input type="submit" value="filter">
+                </td>
+            </tr>
+        </table>
+    </form>
+
 
     <table id="books">
         <tr>

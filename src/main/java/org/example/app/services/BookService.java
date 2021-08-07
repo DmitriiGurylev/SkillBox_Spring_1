@@ -30,14 +30,26 @@ public class BookService {
     }
 
     public boolean removeBookByAuthor(String bookAuthorToRemove) {
-        return bookRepo.removeItemByAuthor(bookAuthorToRemove);
+        return bookRepo.removeItemsByAuthor(bookAuthorToRemove);
     }
 
     public boolean removeBookByTitle(String bookTitleToRemove) {
-        return bookRepo.removeItemByTitle(bookTitleToRemove);
+        return bookRepo.removeItemsByTitle(bookTitleToRemove);
     }
 
     public boolean removeBookBySize(Integer bookSizeToRemove) {
-        return bookRepo.removeItemBySize(bookSizeToRemove);
+        return bookRepo.removeItemsBySize(bookSizeToRemove);
+    }
+
+    public List<Book> filterBooksByAuthor(String bookAuthorToRemove) {
+        return bookRepo.filterItemsByAuthor(bookAuthorToRemove);
+    }
+
+    public List<Book> filterBooksByTitle(String bookTitleToRemove) {
+        return bookRepo.filterItemsByTitle(bookTitleToRemove);
+    }
+
+    public List<Book> filterBooksBySize(Integer bookSizeToFilter) {
+        return bookRepo.filterItemsBySize(bookSizeToFilter);
     }
 }
