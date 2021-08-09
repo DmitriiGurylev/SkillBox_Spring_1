@@ -64,7 +64,7 @@
     </form>
     <form method="post" th:action="@{/books/remove-by-author}">
         <table>
-        <tr>
+            <tr>
                 <td>
                     <input type="text" placeholder="author" th:name="bookAuthorToRemove">
                 </td>
@@ -72,7 +72,7 @@
                     <input type="submit" value="remove">
                 </td>
             </tr>
-    </table>
+        </table>
     </form>
     <form method="post" th:action="@{/books/remove-by-title}">
         <table>
@@ -84,7 +84,7 @@
                     <input type="submit" value="remove">
                 </td>
             </tr>
-    </table>
+        </table>
     </form>
     <form method="post" th:action="@{/books/remove-by-size}">
         <table>
@@ -96,7 +96,7 @@
                     <input type="submit" value="remove">
                 </td>
             </tr>
-    </table>
+        </table>
     </form>
 
     <form method="post" th:action="@{/books/filter-by-author}">
@@ -116,7 +116,7 @@
         <table>
             <tr>
                 <td>
-                    <input type="text" placeholder="author" th:name="bookTitleToFilter">
+                    <input type="text" placeholder="title" th:name="bookTitleToFilter">
                 </td>
                 <td>
                     <input type="submit" value="filter">
@@ -129,7 +129,7 @@
         <table>
             <tr>
                 <td>
-                    <input type="text" placeholder="author" th:name="bookSizeToFilter">
+                    <input type="text" placeholder="size" th:name="bookSizeToFilter">
                 </td>
                 <td>
                     <input type="submit" value="filter">
@@ -138,6 +138,15 @@
         </table>
     </form>
 
+    <form method="post" th:action="@{/books/show-all-values}">
+        <table>
+            <tr>
+                <td>
+                    <input type="submit" value="show all values">
+                </td>
+            </tr>
+        </table>
+    </form>
 
     <table id="books">
         <tr>

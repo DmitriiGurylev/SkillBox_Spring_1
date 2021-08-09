@@ -21,8 +21,9 @@ public class BookService {
     }
 
     public void saveBook(Book book) {
-        if (book != null)
-        bookRepo.store(book);
+        if (book != null) {
+            bookRepo.store(book);
+        }
     }
 
     public boolean removeBookById(Integer bookIdToRemove) {
