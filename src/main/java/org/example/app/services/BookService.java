@@ -1,5 +1,6 @@
 package org.example.app.services;
 
+import org.apache.log4j.Logger;
 import org.example.web.dto.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import java.util.List;
 public class BookService {
 
     private final ProjectRepository<Book> bookRepo;
+    private final Logger logger = Logger.getLogger(BookService.class);
 
     @Autowired
     public BookService(ProjectRepository<Book> bookRepo) {
@@ -26,7 +28,7 @@ public class BookService {
         }
     }
 
-    public boolean removeBookById(Integer bookIdToRemove) {
+    public boolean removeBookById(String bookIdToRemove) {
         return bookRepo.removeItemById(bookIdToRemove);
     }
 
@@ -53,4 +55,14 @@ public class BookService {
     public List<Book> filterBooksBySize(Integer bookSizeToFilter) {
         return bookRepo.filterItemsBySize(bookSizeToFilter);
     }
+
+    public void defaultInit(){
+        logger.info("default INIT in book service");
+    }
+
+    public void defaultDestroy(){
+        logger.info("default DESTROY in book service");
+    }
+
+
 }

@@ -6,6 +6,7 @@ import org.example.app.services.BookService;
 import org.example.app.services.ProjectRepository;
 import org.example.web.dto.Book;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import java.util.Objects;
 
 @Controller
 @RequestMapping(value = "/books")
+@Scope("request")
 public class BookShelfController {
 
     private Logger logger = Logger.getLogger(BookShelfController.class);
@@ -31,7 +33,7 @@ public class BookShelfController {
 
     @GetMapping("/shelf")
     public String books(Model model) {
-        logger.info("got book shelf");
+        logger.info(model.toString());
         model.addAttribute("book", new Book());
         if (filteredBooks==null) {
             model.addAttribute("bookList", bookService.getAllBooks());
@@ -50,7 +52,7 @@ public class BookShelfController {
     }
 
     @PostMapping("/remove-by-id")
-    public String removeBookById(@RequestParam(value = "bookIdToRemove") Integer bookIdToRemove) {
+    public String removeBookById(@RequestParam(value = "bookIdToRemove") String bookIdToRemove) {
         if (bookService.removeBookById(bookIdToRemove)) {
             logger.info("Book removed by ID");
         }
