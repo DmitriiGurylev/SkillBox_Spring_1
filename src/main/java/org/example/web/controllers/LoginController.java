@@ -50,6 +50,5 @@ public class LoginController {
         }
         logger.info("sign-up redirect to book shelf");
         return "redirect:/login";
-
     }
 }

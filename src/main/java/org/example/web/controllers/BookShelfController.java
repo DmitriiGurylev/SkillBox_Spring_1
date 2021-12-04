@@ -10,17 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
-import java.util.List;
 
 @Controller
 @RequestMapping(value = "/books")
 public class BookShelfController {
 
-    private Logger logger = Logger.getLogger(BookShelfController.class);
-    private BookService bookService;
+    private final Logger logger = Logger.getLogger(BookShelfController.class);
+    private final BookService bookService;
 
     @Autowired
     public BookShelfController(BookService bookService) {

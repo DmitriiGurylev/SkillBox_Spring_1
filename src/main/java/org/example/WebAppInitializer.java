@@ -11,7 +11,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
-public class webAppInitializer implements WebApplicationInitializer {
+public class WebAppInitializer implements WebApplicationInitializer {
 
     org.apache.log4j.Logger logger = Logger.getLogger(WebApplicationInitializer.class);
 
