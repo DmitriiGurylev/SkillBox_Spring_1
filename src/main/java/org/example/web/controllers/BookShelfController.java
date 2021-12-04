@@ -31,18 +31,7 @@ public class BookShelfController {
     public String books(Model model) {
         logger.info("got book shelf");
         model.addAttribute("book", new Book());
-        if (model.getAttribute("filter-by-author")!=null){
-            model.addAttribute("bookList", model.getAttribute("filter-by-author"));
-        }
-        else if(model.getAttribute("filter-by-title")!=null){
-            model.addAttribute("bookList", model.getAttribute("filter-by-title"));
-        }
-        else if(model.getAttribute("filter-by-size")!=null){
-            model.addAttribute("bookList", model.getAttribute("filter-by-size"));
-        }
-        else{
-            model.addAttribute("bookList", bookService.getAllBooks());
-        }
+        model.addAttribute("bookList", bookService.getAllBooks());
         return "book_shelf";
     }
 
@@ -86,26 +75,26 @@ public class BookShelfController {
     }
 
     @PostMapping("/filter-by-author")
-    public String filterBooksByAuthor(@RequestParam(value = "bookAuthorToFilter") String bookAuthorToFilter, RedirectAttributes attributes) {
-        List<Book> filteredBooks = bookService.filterBooksByAuthor(bookAuthorToFilter);
+    public String filterBooksByAuthor(@RequestParam(value = "bookAuthorToFilter") String bookAuthorToFilter, Model model) {
         logger.info("Books filtered by Author");
-        attributes.addFlashAttribute("filter-by-author", filteredBooks);
+        model.addAttribute("book", new Book());
+        model.addAttribute("booklist", bookService.filterBooksByAuthor(bookAuthorToFilter));
         return "redirect:/books/shelf";
     }
 
     @PostMapping("/filter-by-title")
-    public String filterBooksByTitle(@RequestParam(value = "bookTitleToFilter") String bookTitleToFilter, RedirectAttributes attributes) {
-        List<Book> filteredBooks = bookService.filterBooksByTitle(bookTitleToFilter);
+    public String filterBooksByTitle(@RequestParam(value = "bookTitleToFilter") String bookTitleToFilter, Model model) {
         logger.info("Books filtered by Title");
-        attributes.addFlashAttribute("filter-by-title", filteredBooks);
+        model.addAttribute("book", new Book());
+        model.addAttribute("booklist", bookService.filterBooksByTitle(bookTitleToFilter));
         return "redirect:/books/shelf";
     }
 
     @PostMapping("/filter-by-size")
-    public String filterBooksBySize(@RequestParam(value = "bookSizeToFilter") Integer bookSizeToFilter, RedirectAttributes attributes) {
-        List<Book> filteredBooks = bookService.filterBooksBySize(bookSizeToFilter);
+    public String filterBooksBySize(@RequestParam(value = "bookSizeToFilter") Integer bookSizeToFilter, Model model) {
         logger.info("Books filtered by Size");
-        attributes.addFlashAttribute("filter-by-size", filteredBooks);
+        model.addAttribute("book", new Book());
+        model.addAttribute("booklist", bookService.filterBooksBySize(bookSizeToFilter));
         return "redirect:/books/shelf";
     }
 

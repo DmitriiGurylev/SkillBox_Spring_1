@@ -9,7 +9,6 @@
             top: 50%;
             transform: translate(-50%, -50%);
         }
-
         .login_item {
             margin-bottom: 10px;
         }
@@ -18,15 +17,29 @@
 <body>
 <div id="login_form">
     Login form
-    <form method="post" th:action="@{/login/auth}" th:object="${loginForm}">
-        <img class="login_item" th:src="@{/images/book_icon.png}" alt="book_image" >
-        <br>
-        <input class="login_item" type="text" placeholder="enter username" th:field="*{username}">
-        <br>
-        <input class="login_item" type="password" placeholder="password" th:field="*{password}">
-        <br>
-        <input class="login_item" type="submit" value="login">
-    </form>
+    <img class="login_item" th:src="@{/images/book_icon.png}" alt="book_image" >
+    <table>
+        <tr>
+            <td>
+                <form method="post" th:action="@{/login/auth}" th:object="${loginForm}">
+                    <input class="login_item" type="text" placeholder="enter username to log" th:field="*{username}">
+                    <br>
+                    <input class="login_item" type="password" placeholder="password to log" th:field="*{password}">
+                    <br>
+                    <input class="login_item" type="submit" value="login">
+                </form>
+            </td>
+            <td>
+                <form method="post" th:action="@{/login/sign-up}" th:object="${loginForm}">
+                    <input class="login_item" type="text" placeholder="enter username to sign up" th:field="*{username}">
+                    <br>
+                    <input class="login_item" type="password" placeholder="password tp sign up" th:field="*{password}">
+                    <br>
+                    <input class="login_item" type="submit" value="sign up">
+                </form>
+            </td>
+        </tr>
+    </table>
 </div>
 </body>
 </html>
