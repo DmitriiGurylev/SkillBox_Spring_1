@@ -42,12 +42,7 @@ public class LoginController {
 
     @PostMapping("/sign-up")
     public String signUp(LoginForm loginForm) {
-        if (loginService.signUp(loginForm)){
-            logger.info("user created");
-        }
-        else{
-            logger.info("user exists already");
-        }
+        logger.info(loginService.signUp(loginForm) ? "user created" : "user exists already");
         logger.info("sign-up redirect to book shelf");
         return "redirect:/login";
     }
