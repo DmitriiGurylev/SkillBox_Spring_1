@@ -21,7 +21,7 @@ public class webAppInitializer implements WebApplicationInitializer {
         logger.info("loading app config");
         XmlWebApplicationContext appContext = new XmlWebApplicationContext();
         appContext.setConfigLocation("classpath:app-config.xml");
-        servletContext.addListener(new ContextLoaderListener(appContext));
+      //  servletContext.addListener(new ContextLoaderListener(appContext));
 
         logger.info("loading web config");
 //    XmlWebApplicationContext webContext = new XmlWebApplicationContext();

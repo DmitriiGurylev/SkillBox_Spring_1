@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class LoginService {
 
     private final InMemoryUserDetailsManager inMemoryUserDetailsManager = new InMemoryUserDetailsManager();
-    private Logger logger = Logger.getLogger(LoginService.class);
+    private final Logger logger = Logger.getLogger(LoginService.class);
 
     public boolean authenticate(LoginForm loginForm) {
         logger.info("try auth with user-form: " + loginForm);
