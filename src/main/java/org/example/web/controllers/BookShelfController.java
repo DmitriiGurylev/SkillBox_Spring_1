@@ -37,15 +37,21 @@ public class BookShelfController {
 
     @PostMapping("/save")
     public String saveBook(Book book) {
-        bookService.saveBook(book);
-        logger.info("current repository size: " + bookService.getAllBooks().size());
+        if (book.getSize()<=0) {
+            logger.info("size if less than 0 pages. This book won't be stored");
+        } else {
+            bookService.saveBook(book);
+            logger.info("current repository size: " + bookService.getAllBooks().size());
+        }
         return "redirect:/books/shelf";
     }
 
     @PostMapping("/remove-by-id")
-    public String removeBookById(@RequestParam(value = "bookIdToRemove") String bookIdToRemove) {
+    public String removeBookById(@RequestParam(value = "bookIdToRemove") Integer bookIdToRemove) {
         if (bookService.removeBookById(bookIdToRemove)) {
             logger.info("Book removed by ID");
+        } else {
+            logger.info("Book wasn't found in repo");
         }
         return "redirect:/books/shelf";
     }
@@ -54,6 +60,8 @@ public class BookShelfController {
     public String removeBookByAuthor(@RequestParam(value = "bookAuthorToRemove") String bookAuthorToRemove) {
         if (bookService.removeBookByAuthor(bookAuthorToRemove)) {
             logger.info("Book removed by Author");
+        } else {
+            logger.info("Book wasn't found in repo");
         }
         return "redirect:/books/shelf";
     }
@@ -62,6 +70,8 @@ public class BookShelfController {
     public String removeBookByTitle(@RequestParam(value = "bookTitleToRemove") String bookTitleToRemove) {
         if (bookService.removeBookByTitle(bookTitleToRemove)) {
             logger.info("Book removed by Title");
+        } else {
+            logger.info("Book wasn't found in repo");
         }
         return "redirect:/books/shelf";
     }
@@ -70,6 +80,8 @@ public class BookShelfController {
     public String removeBookBySize(@RequestParam(value = "bookSizeToRemove") Integer bookSizeToRemove) {
         if (bookService.removeBookBySize(bookSizeToRemove)) {
             logger.info("Book removed by Size");
+        } else {
+            logger.info("Book wasn't found in repo");
         }
         return "redirect:/books/shelf";
     }

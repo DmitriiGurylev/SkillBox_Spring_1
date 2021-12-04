@@ -23,25 +23,44 @@ public class BookService {
     }
 
     public void saveBook(Book book) {
-        if (book != null) {
+        if (book != null && bookRepo.retreiveAll().stream().noneMatch(bookOfRep ->
+                bookOfRep.getAuthor().equals(book.getAuthor()) &&
+                        bookOfRep.getSize().equals(book.getSize()) &&
+                        bookOfRep.getTitle().equals(book.getTitle()))) {
             bookRepo.store(book);
         }
     }
 
-    public boolean removeBookById(String bookIdToRemove) {
-        return bookRepo.removeItemById(bookIdToRemove);
+    public boolean removeBookById(Integer bookIdToRemove) {
+        if (bookRepo.retreiveAll().stream().anyMatch(book -> book.getId().equals(bookIdToRemove))) {
+            return bookRepo.removeItemById(bookIdToRemove);
+        } else {
+            return false;
+        }
     }
 
     public boolean removeBookByAuthor(String bookAuthorToRemove) {
-        return bookRepo.removeItemsByAuthor(bookAuthorToRemove);
+        if (bookRepo.retreiveAll().stream().anyMatch(book -> book.getAuthor().equals(bookAuthorToRemove))) {
+            return bookRepo.removeItemsByAuthor(bookAuthorToRemove);
+        } else {
+            return false;
+        }
     }
 
     public boolean removeBookByTitle(String bookTitleToRemove) {
-        return bookRepo.removeItemsByTitle(bookTitleToRemove);
+        if (bookRepo.retreiveAll().stream().anyMatch(book -> book.getTitle().equals(bookTitleToRemove))) {
+            return bookRepo.removeItemsByTitle(bookTitleToRemove);
+        } else {
+            return false;
+        }
     }
 
     public boolean removeBookBySize(Integer bookSizeToRemove) {
-        return bookRepo.removeItemsBySize(bookSizeToRemove);
+        if (bookRepo.retreiveAll().stream().anyMatch(book -> book.getSize().equals(bookSizeToRemove))) {
+            return bookRepo.removeItemsBySize(bookSizeToRemove);
+        } else {
+            return false;
+        }
     }
 
     public List<Book> filterBooksByAuthor(String bookAuthorToRemove) {
