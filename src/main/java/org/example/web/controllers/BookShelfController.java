@@ -3,6 +3,7 @@ package org.example.web.controllers;
 import org.apache.log4j.Logger;
 import org.example.app.services.BookService;
 import org.example.web.dto.Book;
+import org.example.web.dto.BookIdToRemove;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
+
 @RequestMapping(value = "/books")
 public class BookShelfController {
 
@@ -28,6 +30,7 @@ public class BookShelfController {
     public String books(Model model) {
         logger.info("got book shelf");
         model.addAttribute("book", new Book());
+        model.addAttribute("bookIdToRemove", new BookIdToRemove());
         model.addAttribute("bookList", bookService.getAllBooks());
         return "book_shelf";
     }
@@ -44,42 +47,34 @@ public class BookShelfController {
     }
 
     @PostMapping("/remove-by-id")
-    public String removeBookById(@RequestParam(value = "bookIdToRemove") Integer bookIdToRemove) {
-        if (bookService.removeBookById(bookIdToRemove)) {
-            logger.info("Book removed by ID");
-        } else {
-            logger.info("Book wasn't found in repo");
-        }
+    public String removeBookById(BookIdToRemove bookIdToRemove) {
+        logger.info(bookService.removeBookById(bookIdToRemove.getId()) ?
+                "Book removed by ID" :
+                "Book wasn't found in repo");
         return "redirect:/books/shelf";
     }
 
     @PostMapping("/remove-by-author")
     public String removeBookByAuthor(@RequestParam(value = "bookAuthorToRemove") String bookAuthorToRemove) {
-        if (bookService.removeBookByAuthor(bookAuthorToRemove)) {
-            logger.info("Book removed by Author");
-        } else {
-            logger.info("Book wasn't found in repo");
-        }
+        logger.info(bookService.removeBookByAuthor(bookAuthorToRemove) ?
+                "Book removed by Author" :
+                "Book wasn't found in repo");
         return "redirect:/books/shelf";
     }
 
     @PostMapping("/remove-by-title")
     public String removeBookByTitle(@RequestParam(value = "bookTitleToRemove") String bookTitleToRemove) {
-        if (bookService.removeBookByTitle(bookTitleToRemove)) {
-            logger.info("Book removed by Title");
-        } else {
-            logger.info("Book wasn't found in repo");
-        }
+        logger.info(bookService.removeBookByTitle(bookTitleToRemove) ?
+                "Book removed by Title" :
+                "Book wasn't found in repo");
         return "redirect:/books/shelf";
     }
 
     @PostMapping("/remove-by-size")
     public String removeBookBySize(@RequestParam(value = "bookSizeToRemove") Integer bookSizeToRemove) {
-        if (bookService.removeBookBySize(bookSizeToRemove)) {
-            logger.info("Book removed by Size");
-        } else {
-            logger.info("Book wasn't found in repo");
-        }
+        logger.info(bookService.removeBookBySize(bookSizeToRemove) ?
+                "Book removed by Size" :
+                "Book wasn't found in repo");
         return "redirect:/books/shelf";
     }
 

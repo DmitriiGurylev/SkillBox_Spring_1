@@ -31,12 +31,6 @@ public class LoginController {
         return "login_page";
     }
 
-    @ExceptionHandler(BookShelfLoginException.class)
-    public String handleError(Model model, BookShelfLoginException exception) {
-        model.addAttribute("errorMessage", exception.getMessage());
-        return "errors/404";
-    }
-
     @PostMapping("/auth")
     public String authenticate(LoginForm loginForm) throws BookShelfLoginException {
         if (loginService.authenticate(loginForm)) {
@@ -49,9 +43,15 @@ public class LoginController {
     }
 
     @PostMapping("/sign-up")
-    public String signUp(LoginForm loginForm) {
-        logger.info(loginService.signUp(loginForm) ? "user created" : "user exists already");
-        logger.info("sign-up redirect to book shelf");
-        return "redirect:/login";
+    public String signUp(LoginForm loginForm) throws BookShelfLoginException {
+        if (loginForm.getUsername().equals("") || loginForm.getPassword().equals("")) {
+            logger.info("Can't create user with invalid username or password");
+            throw new BookShelfLoginException("invalid username or password");
+        } else {
+            logger.info(loginService.signUp(loginForm) ? "user created" : "user exists already");
+            logger.info("sign-up redirect to book shelf");
+            return "redirect:/login";
+        }
+
     }
 }

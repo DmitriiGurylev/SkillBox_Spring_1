@@ -17,6 +17,7 @@ public class LoginService {
     public boolean authenticate(LoginForm loginForm) {
         logger.info("try auth with user-form: " + loginForm);
         inMemoryUserDetailsManager.createUser(new User("root","123", new ArrayList<>()));
+        inMemoryUserDetailsManager.createUser(new User("123","123", new ArrayList<>()));
         return inMemoryUserDetailsManager.userExists(loginForm.getUsername())
                 && inMemoryUserDetailsManager.loadUserByUsername(loginForm.getUsername())
                 .getPassword().equals(loginForm.getPassword());
@@ -25,12 +26,12 @@ public class LoginService {
     public boolean signUp(LoginForm loginForm) {
         if (inMemoryUserDetailsManager.userExists(loginForm.getUsername())) {
             return false;
-        }
-        else{
+        } else {
             inMemoryUserDetailsManager
                     .createUser(new User(loginForm.getUsername(), loginForm.getPassword(), new ArrayList<>()));
             logger.info("username: "+loginForm.getUsername()+", password: "+loginForm.getPassword());
             return true;
         }
     }
+
 }
