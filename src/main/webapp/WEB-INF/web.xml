@@ -5,21 +5,19 @@
 <web-app>
     <display-name>Archetype Created Web Application</display-name>
 
-<!--    <error-page>-->
-<!--        <error-code>-->
-<!--            <location>404</location>-->
-<!--            <location>/404</location>-->
-<!--        </error-code>-->
-<!--    </error-page>-->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404</location>
+    </error-page>
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:app-config.xml</param-value>
     </context-param>
 
-<!--    <listener>-->
-<!--        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>-->
-<!--    </listener>-->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
 
     <servlet>
         <servlet-name>my-dispatcher-servlet</servlet-name>
@@ -35,5 +33,4 @@
         <servlet-name>my-dispatcher-servlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-
 </web-app>
