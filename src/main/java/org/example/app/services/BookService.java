@@ -36,27 +36,15 @@ public class BookService {
     }
 
     public boolean removeBookByAuthor(String bookAuthorToRemove) {
-        if (bookRepo.retreiveAll().stream().anyMatch(book -> book.getAuthor().equals(bookAuthorToRemove))) {
-            return bookRepo.removeItemsByAuthor(bookAuthorToRemove);
-        } else {
-            return false;
-        }
+        return bookRepo.removeItemsByAuthor(bookAuthorToRemove);
     }
 
     public boolean removeBookByTitle(String bookTitleToRemove) {
-        if (bookRepo.retreiveAll().stream().anyMatch(book -> book.getTitle().equals(bookTitleToRemove))) {
-            return bookRepo.removeItemsByTitle(bookTitleToRemove);
-        } else {
-            return false;
-        }
+        return bookRepo.removeItemsByTitle(bookTitleToRemove);
     }
 
     public boolean removeBookBySize(Integer bookSizeToRemove) {
-        if (bookRepo.retreiveAll().stream().anyMatch(book -> book.getSize().equals(bookSizeToRemove))) {
-            return bookRepo.removeItemsBySize(bookSizeToRemove);
-        } else {
-            return false;
-        }
+        return bookRepo.removeItemsBySize(bookSizeToRemove);
     }
 
     public List<Book> filterBooksByAuthor(String bookAuthorToRemove) {

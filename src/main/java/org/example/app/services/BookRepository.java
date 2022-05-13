@@ -66,41 +66,29 @@ public class BookRepository implements ProjectRepository<Book>, ApplicationConte
 
     @Override
     public boolean removeItemsByAuthor(String bookAuthorToRemove){
-        List<Book> repoAuthor = retreiveAll().stream()
-                .filter(book -> book.getAuthor().toLowerCase(Locale.ROOT).equals(bookAuthorToRemove.toLowerCase(Locale.ROOT)))
-                .collect(Collectors.toList());
-        for (Book book : repoAuthor) {
-            logger.info("remove book completed: " + book);
-            return true;
-//                return repo.remove(book);
-        }
-        return false;
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue("author", bookAuthorToRemove);
+        jdbcTemplate.update("DELETE FROM books WHERE author = :author", parameterSource);
+        logger.info("remove book completed");
+        return true;
     }
 
     @Override
     public boolean removeItemsByTitle(String bookTitleToRemove){
-        List<Book> repoTitle = retreiveAll().stream()
-                .filter(book -> book.getTitle().toLowerCase(Locale.ROOT).equals(bookTitleToRemove.toLowerCase(Locale.ROOT)))
-                .collect(Collectors.toList());
-        for (Book book : repoTitle) {
-            logger.info("remove book completed: " + book);
-            return true;
-//                return repo.remove(book);
-        }
-        return false;
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue("title", bookTitleToRemove);
+        jdbcTemplate.update("DELETE FROM books WHERE title = :title", parameterSource);
+        logger.info("remove book completed");
+        return true;
     }
 
     @Override
     public boolean removeItemsBySize(Integer bookSizeToRemove){
-        List<Book> repoSize = retreiveAll().stream()
-                .filter(book -> book.getSize().equals(bookSizeToRemove))
-                .collect(Collectors.toList());
-        for (Book book : repoSize) {
-            logger.info("remove book completed: " + book);
-            return true;
-//                return repo.remove(book);
-        }
-        return false;
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue("size", bookSizeToRemove);
+        jdbcTemplate.update("DELETE FROM books WHERE size = :size", parameterSource);
+        logger.info("remove book completed");
+        return true;
     }
 
     @Override

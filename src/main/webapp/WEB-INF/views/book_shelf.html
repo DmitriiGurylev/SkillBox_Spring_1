@@ -65,38 +65,47 @@
             </tr>
         </table>
     </form>
-    <form method="post" th:action="@{/books/remove-by-author}">
+    <form method="post" th:action="@{/books/remove-by-author}" th:object="${bookAuthorToRemove}">
         <table>
             <tr>
                 <td>
-                    <input type="text" placeholder="author" th:name="bookAuthorToRemove">
+                    <input type="text" placeholder="author" th:field="*{author}">
                 </td>
                 <td>
                     <input type="submit" value="remove by author">
                 </td>
+                <td th:if="${#fields.hasErrors()}">
+                    <h5 style="color: red">Wrong Author name or Not Found</h5>
+                </td>
             </tr>
         </table>
     </form>
-    <form method="post" th:action="@{/books/remove-by-title}">
+    <form method="post" th:action="@{/books/remove-by-title}" th:object="${bookTitleToRemove}">
         <table>
             <tr>
                 <td>
-                    <input type="text" placeholder="title" th:name="bookTitleToRemove">
+                    <input type="text" placeholder="title" th:field="*{title}">
                 </td>
                 <td>
                     <input type="submit" value="remove by title">
                 </td>
+                <td th:if="${#fields.hasErrors()}">
+                    <h5 style="color: red">Wrong Title name or Not Found</h5>
+                </td>
             </tr>
         </table>
     </form>
-    <form method="post" th:action="@{/books/remove-by-size}">
+    <form method="post" th:action="@{/books/remove-by-size}" th:object="${bookSizeToRemove}">
         <table>
             <tr>
                 <td>
-                    <input type="text" placeholder="size number" th:name="bookSizeToRemove">
+                    <input type="text" placeholder="size number" th:field="*{size}">
                 </td>
                 <td>
                     <input type="submit" value="remove by size">
+                </td>
+                <td th:if="${#fields.hasErrors()}">
+                    <h5 style="color: red">Wrong Size number or Not Found</h5>
                 </td>
             </tr>
         </table>

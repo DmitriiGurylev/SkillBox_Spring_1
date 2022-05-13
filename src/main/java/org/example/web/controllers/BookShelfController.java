@@ -2,8 +2,7 @@ package org.example.web.controllers;
 
 import org.apache.log4j.Logger;
 import org.example.app.services.BookService;
-import org.example.web.dto.Book;
-import org.example.web.dto.BookIdToRemove;
+import org.example.web.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +36,9 @@ public class BookShelfController {
         logger.info("got book shelf");
         model.addAttribute("book", new Book());
         model.addAttribute("bookIdToRemove", new BookIdToRemove());
+        model.addAttribute("bookAuthorToRemove", new BookAuthorToRemove());
+        model.addAttribute("bookTitleToRemove", new BookTitleToRemove());
+        model.addAttribute("bookSizeToRemove", new BookSizeToRemove());
         model.addAttribute("bookList", bookService.getAllBooks());
         return "book_shelf";
     }
@@ -47,6 +49,9 @@ public class BookShelfController {
             logger.info("got book shelf");
             model.addAttribute("book", book);
             model.addAttribute("bookIdToRemove", new BookIdToRemove());
+            model.addAttribute("bookAuthorToRemove", new BookAuthorToRemove());
+            model.addAttribute("bookTitleToRemove", new BookTitleToRemove());
+            model.addAttribute("bookSizeToRemove", new BookSizeToRemove());
             model.addAttribute("bookList", bookService.getAllBooks());
             return "book_shelf";
         } else {
@@ -71,27 +76,45 @@ public class BookShelfController {
     }
 
     @PostMapping("/remove-by-author")
-    public String removeBookByAuthor(@RequestParam(value = "bookAuthorToRemove") String bookAuthorToRemove) {
-        logger.info(bookService.removeBookByAuthor(bookAuthorToRemove) ?
-                "Book removed by Author" :
-                "Book wasn't found in repo");
-        return "redirect:/books/shelf";
+    public String removeBookByAuthor(@Valid BookAuthorToRemove bookAuthorToRemove, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("book", new Book());
+            model.addAttribute("bookList", bookService.getAllBooks());
+            logger.info("Wrong Author name or Not Found");
+            return "book_shelf";
+        } else {
+            bookService.removeBookByAuthor(bookAuthorToRemove.getAuthor());
+            logger.info("Book removed by Author");
+            return "redirect:/books/shelf";
+        }
     }
 
     @PostMapping("/remove-by-title")
-    public String removeBookByTitle(@RequestParam(value = "bookTitleToRemove") String bookTitleToRemove) {
-        logger.info(bookService.removeBookByTitle(bookTitleToRemove) ?
-                "Book removed by Title" :
-                "Book wasn't found in repo");
-        return "redirect:/books/shelf";
+    public String removeBookByTitle(@Valid BookTitleToRemove bookTitleToRemove, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("book", new Book());
+            model.addAttribute("bookList", bookService.getAllBooks());
+            logger.info("Wrong Title name or Not Found");
+            return "book_shelf";
+        } else {
+            bookService.removeBookByTitle(bookTitleToRemove.getTitle());
+            logger.info("Book removed by Title");
+            return "redirect:/books/shelf";
+        }
     }
 
     @PostMapping("/remove-by-size")
-    public String removeBookBySize(@RequestParam(value = "bookSizeToRemove") Integer bookSizeToRemove) {
-        logger.info(bookService.removeBookBySize(bookSizeToRemove) ?
-                "Book removed by Size" :
-                "Book wasn't found in repo");
-        return "redirect:/books/shelf";
+    public String removeBookBySize(@Valid BookSizeToRemove bookSizeToRemove, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("book", new Book());
+            model.addAttribute("bookList", bookService.getAllBooks());
+            logger.info("Wrong Size number or Not Found");
+            return "book_shelf";
+        } else {
+            bookService.removeBookBySize(bookSizeToRemove.getSize());
+            logger.info("Book removed by Size");
+            return "redirect:/books/shelf";
+        }
     }
 
     @PostMapping("/filter-by-author")
