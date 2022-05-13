@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 
 
 @Controller
@@ -55,16 +58,16 @@ public class BookShelfController {
 
     @PostMapping("/remove-by-id")
     public String removeBookById(@Valid BookIdToRemove bookIdToRemove, BindingResult bindingResult, Model model) {
-       if (bindingResult.hasErrors()) {
-           model.addAttribute("book", new Book());
-           model.addAttribute("bookList", bookService.getAllBooks());
-           logger.info("Wrong ID or Not Found");
-           return "book_shelf";
-       } else {
-           bookService.removeBookById(bookIdToRemove.getId());
-           logger.info("Book removed by ID");
-           return "redirect:/books/shelf";
-       }
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("book", new Book());
+            model.addAttribute("bookList", bookService.getAllBooks());
+            logger.info("Wrong ID or Not Found");
+            return "book_shelf";
+        } else {
+            bookService.removeBookById(bookIdToRemove.getId());
+            logger.info("Book removed by ID");
+            return "redirect:/books/shelf";
+        }
     }
 
     @PostMapping("/remove-by-author")
@@ -120,4 +123,26 @@ public class BookShelfController {
         logger.info("Books are not filtered now");
         return "redirect:/books/shelf";
     }
+
+    @PostMapping("/uploadFile")
+    public String uploadFile(@RequestParam("file")MultipartFile file) throws Exception {
+        String name = file.getOriginalFilename();
+        byte[] bytes = file.getBytes();
+
+        // create Dir
+        String rootPath = "/home/gur/Desktop";
+        File dir = new File(rootPath + File.separator + "external_uploads");
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        // create File to save at Server
+        File serverFile = new File(dir.getAbsolutePath() + File.separator + name);
+        BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+        stream.write(bytes);
+        stream.close();
+        logger.info("new file saved at: "+ serverFile.getAbsolutePath());
+        return "redirect:/books/shelf";
+    }
+
 }
