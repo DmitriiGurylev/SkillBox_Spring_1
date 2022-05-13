@@ -31,6 +31,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
 //        webContext.setConfigLocation("classpath:web-config.xml");
         AnnotationConfigWebApplicationContext webContext = new AnnotationConfigWebApplicationContext();
         webContext.register(WebContextConfig.class);
+
         DispatcherServlet dispatcherServlet = new DispatcherServlet(webContext);
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", dispatcherServlet);
         dispatcher.setLoadOnStartup(1);
