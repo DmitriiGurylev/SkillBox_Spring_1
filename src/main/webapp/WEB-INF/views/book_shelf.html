@@ -42,6 +42,7 @@
                 </td>
                 <td>
                     <input type="number" placeholder="size (pages)" th:field="*{size}">
+                    <p th:if="${#fields.hasErrors()}">Field value must be digit and less than 4 signs</p>
                 </td>
                 <td>
                     <input type="submit" value="save">
@@ -49,7 +50,6 @@
             </tr>
         </table>
     </form>
-
     <form method="post" th:action="@{/books/remove-by-id}" th:object="${bookIdToRemove}">
         <table>
             <tr>
@@ -57,10 +57,10 @@
                     <input type="text" placeholder="id number" th:field="*{id}">
                 </td>
                 <td>
-                    <input type="submit" value="remove">
+                    <input type="submit" value="remove by id">
                 </td>
-                <td th:if="${fields.hasErrors()}">
-                    <p>Wrong id or not found</p>
+                <td th:if="${#fields.hasErrors()}">
+                    <h5 style="color: red">Wrong ID or Not Found</h5>
                 </td>
             </tr>
         </table>
@@ -72,7 +72,7 @@
                     <input type="text" placeholder="author" th:name="bookAuthorToRemove">
                 </td>
                 <td>
-                    <input type="submit" value="remove">
+                    <input type="submit" value="remove by author">
                 </td>
             </tr>
         </table>
@@ -84,7 +84,7 @@
                     <input type="text" placeholder="title" th:name="bookTitleToRemove">
                 </td>
                 <td>
-                    <input type="submit" value="remove">
+                    <input type="submit" value="remove by title">
                 </td>
             </tr>
         </table>
@@ -96,7 +96,7 @@
                     <input type="text" placeholder="size number" th:name="bookSizeToRemove">
                 </td>
                 <td>
-                    <input type="submit" value="remove">
+                    <input type="submit" value="remove by size">
                 </td>
             </tr>
         </table>

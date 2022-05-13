@@ -7,10 +7,13 @@ import org.example.web.dto.BookIdToRemove;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.validation.Valid;
 
 
 @Controller
@@ -36,22 +39,32 @@ public class BookShelfController {
     }
 
     @PostMapping("/save")
-    public String saveBook(Book book) {
-        if (book.getSize()<=0) {
-            logger.info("size if less than 0 pages. This book won't be stored");
+    public String saveBook(@Valid Book book, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            logger.info("got book shelf");
+            model.addAttribute("book", book);
+            model.addAttribute("bookIdToRemove", new BookIdToRemove());
+            model.addAttribute("bookList", bookService.getAllBooks());
+            return "book_shelf";
         } else {
             bookService.saveBook(book);
             logger.info("current repository size: " + bookService.getAllBooks().size());
+            return "redirect:/books/shelf";
         }
-        return "redirect:/books/shelf";
     }
 
     @PostMapping("/remove-by-id")
-    public String removeBookById(BookIdToRemove bookIdToRemove) {
-        logger.info(bookService.removeBookById(bookIdToRemove.getId()) ?
-                "Book removed by ID" :
-                "Book wasn't found in repo");
-        return "redirect:/books/shelf";
+    public String removeBookById(@Valid BookIdToRemove bookIdToRemove, BindingResult bindingResult, Model model) {
+       if (bindingResult.hasErrors()) {
+           model.addAttribute("book", new Book());
+           model.addAttribute("bookList", bookService.getAllBooks());
+           logger.info("Wrong ID or Not Found");
+           return "book_shelf";
+       } else {
+           bookService.removeBookById(bookIdToRemove.getId());
+           logger.info("Book removed by ID");
+           return "redirect:/books/shelf";
+       }
     }
 
     @PostMapping("/remove-by-author")
