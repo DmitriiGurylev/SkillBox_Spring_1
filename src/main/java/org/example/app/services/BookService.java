@@ -31,8 +31,8 @@ public class BookService {
         }
     }
 
-    public boolean removeBookById(String bookIdToRemove) {
-        if (bookRepo.retreiveAll().stream().anyMatch(book -> book.getId().equals(bookIdToRemove))) {
+    public boolean removeBookById(int bookIdToRemove) {
+        if (bookRepo.retreiveAll().stream().anyMatch(book -> book.getId() == bookIdToRemove)) {
             return bookRepo.removeItemById(bookIdToRemove);
         } else {
             return false;
