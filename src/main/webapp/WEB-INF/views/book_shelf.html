@@ -52,7 +52,7 @@
         </table>
     </form>
 
-    <form method="post" th:action="@{/books/processRemovingForm}" th:object="${bookToRemove}">
+    <form method="post" th:action="@{/books/processRemovingForm}" th:object="${bookParam}">
         <table>
             <tbody>
             <tr>
@@ -78,42 +78,26 @@
         </table>
     </form>
 
-    <form method="post" th:action="@{/books/filter-by-author}">
+    <form method="post" th:action="@{/books/processFilteringForm}" th:object="${bookParam}">
         <table>
+            <tbody>
             <tr>
-                <td>
-                    <input type="text" placeholder="author" th:name="bookAuthorToFilter">
-                </td>
-                <td>
-                    <input type="submit" value="filter by author">
+                <td colspan="4" align="center">
+                    <input type="text" placeholder="id/author/title/size" th:field="*{param}" style='width: 100%'>
                 </td>
             </tr>
-        </table>
-    </form>
-
-    <form method="post" th:action="@{/books/filter-by-title}">
-        <table>
             <tr>
                 <td>
-                    <input type="text" placeholder="title" th:name="bookTitleToFilter">
+                    <input type="submit" value="filter by author" name="filter_by_author">
                 </td>
                 <td>
-                    <input type="submit" value="filter by title">
+                    <input type="submit" value="filter by title" name="filter_by_title">
+                </td>
+                <td>
+                    <input type="submit" value="filter by size" name="filter_by_size">
                 </td>
             </tr>
-        </table>
-    </form>
-
-    <form method="post" th:action="@{/books/filter-by-size}">
-        <table>
-            <tr>
-                <td>
-                    <input type="text" placeholder="size" th:name="bookSizeToFilter">
-                </td>
-                <td>
-                    <input type="submit" value="filter by size">
-                </td>
-            </tr>
+            </tbody>
         </table>
     </form>
 

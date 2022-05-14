@@ -32,7 +32,7 @@ public class BookShelfController {
     public String books(Model model) {
         logger.info("got book shelf");
         model.addAttribute("book", new Book());
-        model.addAttribute("bookToRemove", new BookToRemove());
+        model.addAttribute("bookParam", new BookParam());
         model.addAttribute("bookList", bookService.getAllBooks());
         return "book_shelf";
     }
@@ -41,7 +41,7 @@ public class BookShelfController {
     public String saveBook(@Valid Book book, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("book", book);
-            model.addAttribute("bookToRemove", new BookToRemove());
+            model.addAttribute("bookParam", new BookParam());
             model.addAttribute("bookList", bookService.getAllBooks());
             return "book_shelf";
         } else {
@@ -52,88 +52,108 @@ public class BookShelfController {
     }
 
     @PostMapping(value="/processRemovingForm", params="remove_by_id")
-    public String removeById(@Valid BookToRemove bookToRemove, BindingResult bindingResult, Model model) {
+    public String removeById(@Valid BookParam bookParam, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("book", new Book());
-            model.addAttribute("bookToRemove", new BookToRemove());
+            model.addAttribute("bookParam", new BookParam());
             model.addAttribute("bookList", bookService.getAllBooks());
             logger.info("Wrong ID or Not Found");
             return "book_shelf";
         } else {
-            bookService.removeBookById(Integer.parseInt(bookToRemove.getParam()));
+            bookService.removeBookById(Integer.parseInt(bookParam.getParam()));
             logger.info("Book removed by ID");
             return "redirect:/books/shelf";
         }
     }
 
     @PostMapping(value="/processRemovingForm", params="remove_by_author")
-    public String removeByAuthor(@Valid BookToRemove bookToRemove, BindingResult bindingResult, Model model) {
+    public String removeByAuthor(@Valid BookParam bookParam, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("book", new Book());
-            model.addAttribute("bookToRemove", new BookToRemove());
+            model.addAttribute("bookParam", new BookParam());
             model.addAttribute("bookList", bookService.getAllBooks());
             logger.info("Wrong Author name or Not Found");
             return "book_shelf";
         } else {
-            bookService.removeBookByAuthor(bookToRemove.getParam());
+            bookService.removeBookByAuthor(bookParam.getParam());
             logger.info("Books removed by Author");
             return "redirect:/books/shelf";
         }
     }
 
     @PostMapping(value="/processRemovingForm", params="remove_by_title")
-    public String removeByTitle(@Valid BookToRemove bookToRemove, BindingResult bindingResult, Model model) {
+    public String removeByTitle(@Valid BookParam bookParam, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("book", new Book());
-            model.addAttribute("bookToRemove", new BookToRemove());
+            model.addAttribute("bookParam", new BookParam());
             model.addAttribute("bookList", bookService.getAllBooks());
             logger.info("Wrong Title name or Not Found");
             return "book_shelf";
         } else {
-            bookService.removeBookByAuthor(bookToRemove.getParam());
+            bookService.removeBookByTitle(bookParam.getParam());
             logger.info("Books removed by Title");
             return "redirect:/books/shelf";
         }
     }
 
     @PostMapping(value="/processRemovingForm", params="remove_by_size")
-    public String removeBySize(@Valid BookToRemove bookToRemove, BindingResult bindingResult, Model model) {
+    public String removeBySize(@Valid BookParam bookParam, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("book", new Book());
-            model.addAttribute("bookToRemove", new BookToRemove());
+            model.addAttribute("bookParam", new BookParam());
             model.addAttribute("bookList", bookService.getAllBooks());
             logger.info("Wrong Size number or Not Found");
             return "book_shelf";
         } else {
-            bookService.removeBookById(Integer.parseInt(bookToRemove.getParam()));
+            bookService.removeBookBySize(Integer.parseInt(bookParam.getParam()));
             logger.info("Book removed by Size number");
             return "redirect:/books/shelf";
         }
     }
 
-    @PostMapping("/filter-by-author")
-    public String filterBooksByAuthor(@RequestParam(value = "bookAuthorToFilter") String bookAuthorToFilter, Model model) {
-        model.addAttribute("book", new Book());
-        model.addAttribute("booklist", bookService.filterBooksByAuthor(bookAuthorToFilter));
-        logger.info("Books filtered by Author");
-//        return "redirect:/books/shelf";
-        return "book_shelf";
+    @PostMapping(value="/processFilteringForm", params="filter_by_author")
+    public String filterByAuthor(@Valid BookParam bookParam, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("book", new Book());
+            model.addAttribute("bookParam", new BookParam());
+            model.addAttribute("bookList", bookService.getAllBooks());
+            logger.info("Wrong Author name or Not Found");
+            return "book_shelf";
+        } else {
+            bookService.filterBooksByAuthor(bookParam.getParam());
+            logger.info("Books filtered by Author name");
+            return "redirect:/books/shelf";
+        }
     }
 
-    @PostMapping("/filter-by-title")
-    public String filterBooksByTitle(@RequestParam(value = "bookTitleToFilter") String bookTitleToFilter, Model model) {
-        logger.info("Books filtered by Title");
-        model.addAttribute("book", new Book());
-        model.addAttribute("booklist", bookService.filterBooksByTitle(bookTitleToFilter));
-        return "redirect:/books/shelf";
+    @PostMapping(value="/processFilteringForm", params="filter_by_title")
+    public String filterByTitle(@Valid BookParam bookParam, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("book", new Book());
+            model.addAttribute("bookParam", new BookParam());
+            model.addAttribute("bookList", bookService.getAllBooks());
+            logger.info("Wrong Title name or Not Found");
+            return "book_shelf";
+        } else {
+            bookService.filterBooksByTitle(bookParam.getParam());
+            logger.info("Books filtered by Title name");
+            return "redirect:/books/shelf";
+        }
     }
 
-    @PostMapping("/filter-by-size")
-    public String filterBooksBySize(@RequestParam(value = "bookSizeToFilter") Integer bookSizeToFilter, Model model) {
-        logger.info("Books filtered by Size");
-        model.addAttribute("book", new Book());
-        model.addAttribute("booklist", bookService.filterBooksBySize(bookSizeToFilter));
-        return "redirect:/books/shelf";
+    @PostMapping(value="/processFilteringForm", params="filter_by_size")
+    public String filterBySize(@Valid BookParam bookParam, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("book", new Book());
+            model.addAttribute("bookParam", new BookParam());
+            model.addAttribute("bookList", bookService.getAllBooks());
+            logger.info("Wrong Size number or Not Found");
+            return "book_shelf";
+        } else {
+            bookService.filterBooksBySize(Integer.valueOf(bookParam.getParam()));
+            logger.info("Books filtered by Size number");
+            return "redirect:/books/shelf";
+        }
     }
 
     @PostMapping("/show-all-values")

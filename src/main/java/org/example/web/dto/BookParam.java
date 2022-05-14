@@ -2,7 +2,7 @@ package org.example.web.dto;
 
 import javax.validation.constraints.NotNull;
 
-public class BookToRemove {
+public class BookParam {
 
     @NotNull
     private String param;
