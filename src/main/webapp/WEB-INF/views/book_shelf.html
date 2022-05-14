@@ -27,6 +27,7 @@
         th, td {
             border-bottom: 1px solid #ddd;
         }
+
     </style>
 </head>
 <body>
@@ -36,13 +37,15 @@
             <tr>
                 <td>
                     <input type="text" placeholder="author" th:field="*{author}">
+                    <p th:if="${#fields.hasErrors('author')}">Field value must bbe not empty</p>
                 </td>
                 <td>
                     <input type="text" placeholder="book_title" th:field="*{title}">
+                    <p th:if="${#fields.hasErrors('title')}">Field value must be not empty</p>
                 </td>
                 <td>
                     <input type="number" placeholder="size (pages)" th:field="*{size}">
-                    <p th:if="${#fields.hasErrors()}">Field value must be digit and less than 4 signs</p>
+                    <p th:if="${#fields.hasErrors('size')}">Field value must be digit and less than 4 signs</p>
                 </td>
                 <td>
                     <input type="submit" value="save">
@@ -50,103 +53,60 @@
             </tr>
         </table>
     </form>
-    <form method="post" th:action="@{/books/remove-by-id}" th:object="${bookIdToRemove}">
+
+    <form method="post" th:action="@{/books/processRemovingForm}">
         <table>
+            <tbody>
             <tr>
-                <td>
-                    <input type="text" placeholder="id number" th:field="*{id}">
-                </td>
-                <td>
-                    <input type="submit" value="remove by id">
-                </td>
-                <td th:if="${#fields.hasErrors()}">
-                    <p style="color: red">Wrong ID or Not Found</p>
+                <td colspan="4" align="center">
+                    <input type="text" placeholder="id / author / title / size" style='width: 100%' th:value="${removeInput}" name="removeInput">
                 </td>
             </tr>
-        </table>
-    </form>
-    <form method="post" th:action="@{/books/remove-by-author}" th:object="${bookAuthorToRemove}">
-        <table>
             <tr>
                 <td>
-                    <input type="text" placeholder="author" th:field="*{author}">
+                    <input type="submit" value="remove by id" name="remove_by_id">
+                    <p th:if="${removeInputId == '' or removeInputIdError == true}">ID is Not Valid or Not Found</p>
                 </td>
                 <td>
-                    <input type="submit" value="remove by author">
+                    <input type="submit" value="remove by author" name="remove_by_author">
+                    <p th:if="${removeInputAuthor == ''}">Author name is Not Valid or Not Found</p>
                 </td>
-                <td th:if="${#fields.hasErrors()}">
-                    <p style="color: red">Wrong Author name or Not Found</p>
+                <td>
+                    <input type="submit" value="remove by title" name="remove_by_title">
+                    <p th:if="${removeInputTitle == ''}">Title name is Not Valid or Not Found</p>
+                </td>
+                <td>
+                    <input type="submit" value="remove by size" name="remove_by_size">
+                    <p th:if="${removeInputSize == '' or removeInputSizeError == true}">Size is Not Valid or Not Found</p>
                 </td>
             </tr>
-        </table>
-    </form>
-    <form method="post" th:action="@{/books/remove-by-title}" th:object="${bookTitleToRemove}">
-        <table>
-            <tr>
-                <td>
-                    <input type="text" placeholder="title" th:field="*{title}">
-                </td>
-                <td>
-                    <input type="submit" value="remove by title">
-                </td>
-                <td th:if="${#fields.hasErrors()}">
-                    <p style="color: red">Wrong Title name or Not Found</p>
-                </td>
-            </tr>
-        </table>
-    </form>
-    <form method="post" th:action="@{/books/remove-by-size}" th:object="${bookSizeToRemove}">
-        <table>
-            <tr>
-                <td>
-                    <input type="text" placeholder="size number" th:field="*{size}">
-                </td>
-                <td>
-                    <input type="submit" value="remove by size">
-                </td>
-                <td th:if="${#fields.hasErrors()}">
-                    <p style="color: red">Wrong Size number or Not Found</p>
-                </td>
-            </tr>
+            </tbody>
         </table>
     </form>
 
-    <form method="post" th:action="@{/books/filter-by-author}">
+    <form method="post" th:action="@{/books/processFilteringForm}">
         <table>
+            <tbody>
             <tr>
-                <td>
-                    <input type="text" placeholder="author" th:name="bookAuthorToFilter">
-                </td>
-                <td>
-                    <input type="submit" value="filter">
+                <td colspan="4" align="center">
+                    <input type="text" placeholder="id / author / title / size" style='width: 100%' th:value="${filterInput}" name="filterInput">
                 </td>
             </tr>
-        </table>
-    </form>
-
-    <form method="post" th:action="@{/books/filter-by-title}">
-        <table>
             <tr>
                 <td>
-                    <input type="text" placeholder="title" th:name="bookTitleToFilter">
+                    <input type="submit" value="filter by author" name="filter_by_author">
+                    <p th:if="${filterInputAuthor == ''}">Author name is Not Valid or Not Found</p>
                 </td>
                 <td>
-                    <input type="submit" value="filter">
+                    <input type="submit" value="filter by title" name="filter_by_title">
+                    <p th:if="${filterInputTitle == ''}">Title name is Not Valid or Not Found</p>
+                </td>
+                <td>
+                    <input type="submit" value="filter by size" name="filter_by_size">
+                    <p th:if="${filterInputSize == '' or filterInputSizeError == true}">Size is Not Valid or Not Found</p>
                 </td>
             </tr>
-        </table>
-    </form>
-
-    <form method="post" th:action="@{/books/filter-by-size}">
-        <table>
-            <tr>
-                <td>
-                    <input type="text" placeholder="size" th:name="bookSizeToFilter">
-                </td>
-                <td>
-                    <input type="submit" value="filter">
-                </td>
-            </tr>
+            </tbody>
         </table>
     </form>
 
@@ -168,6 +128,11 @@
                 </td>
                 <td>
                     <input type="submit" value="Upload"/>
+                </td>
+            </tr>
+            <tr th:if="${emptyFile == true}">
+                <td>
+                    <p>Choose a File to Upload</p>
                 </td>
             </tr>
         </table>

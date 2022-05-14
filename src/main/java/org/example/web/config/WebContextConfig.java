@@ -28,7 +28,6 @@ public class WebContextConfig implements WebMvcConfigurer {
         templateResolver.setPrefix("/WEB-INF/views/");
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode("HTML5");
-
         return templateResolver;
     }
 
@@ -36,7 +35,6 @@ public class WebContextConfig implements WebMvcConfigurer {
     public SpringTemplateEngine templateEngine(){
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver());
-
         return templateEngine;
     }
 
@@ -45,7 +43,6 @@ public class WebContextConfig implements WebMvcConfigurer {
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
         viewResolver.setTemplateEngine(templateEngine());
         viewResolver.setOrder(1);
-
         return  viewResolver;
     }
 
