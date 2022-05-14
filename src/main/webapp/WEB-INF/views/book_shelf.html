@@ -51,27 +51,27 @@
         </table>
     </form>
 
-    <form method="post">
+    <form method="post" th:action="@{/books/processRemovingForm}" th:object="${bookToRemove}">
         <table>
             <tbody>
             <tr>
-                <td colspan="4" align="center" >
-                    <input type="text" placeholder="id / author / title / size">
+                <td colspan="4" align="center">
+                    <input type="text" placeholder="id/author/title/size" th:field="*{param}">
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="submit" value="remove by id" th:action="@{/books/remove-by-id}" th:object="${bookIdToRemove}">
+                    <input type="submit" value="remove by id" name="remove_by_id">
                 </td>
-                <td>
-                    <input type="submit" value="remove by author" th:action="@{/books/remove-by-author}" th:object="${bookAuthorToRemove}">
-                </td>
-                <td>
-                    <input type="submit" value="remove by title" th:action="@{/books/remove-by-title}" th:object="${bookTitleToRemove}">
-                </td>
-                <td>
-                    <input type="submit" value="remove by size" th:action="@{/books/remove-by-size}" th:object="${bookSizeToRemove}">
-                </td>
+<!--                <td>-->
+<!--                    <input type="submit" value="remove by author" name="remove_by_author">-->
+<!--                </td>-->
+<!--                <td>-->
+<!--                    <input type="submit" value="remove by title" name="remove_by_title">-->
+<!--                </td>-->
+<!--                <td>-->
+<!--                    <input type="submit" value="remove by size" name="remove_by_size">-->
+<!--                </td>-->
             </tr>
             </tbody>
         </table>
