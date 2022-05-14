@@ -27,6 +27,7 @@
         th, td {
             border-bottom: 1px solid #ddd;
         }
+
     </style>
 </head>
 <body>
@@ -56,40 +57,24 @@
             <tbody>
             <tr>
                 <td colspan="4" align="center">
-                    <input type="text" placeholder="id/author/title/size" th:field="*{param}">
+                    <input type="text" placeholder="id/author/title/size" th:field="*{param}" style='width: 100%'>
                 </td>
             </tr>
             <tr>
                 <td>
                     <input type="submit" value="remove by id" name="remove_by_id">
                 </td>
-<!--                <td>-->
-<!--                    <input type="submit" value="remove by author" name="remove_by_author">-->
-<!--                </td>-->
-<!--                <td>-->
-<!--                    <input type="submit" value="remove by title" name="remove_by_title">-->
-<!--                </td>-->
-<!--                <td>-->
-<!--                    <input type="submit" value="remove by size" name="remove_by_size">-->
-<!--                </td>-->
+                <td>
+                    <input type="submit" value="remove by author" name="remove_by_author">
+                </td>
+                <td>
+                    <input type="submit" value="remove by title" name="remove_by_title">
+                </td>
+                <td>
+                    <input type="submit" value="remove by size" name="remove_by_size">
+                </td>
             </tr>
             </tbody>
-        </table>
-    </form>
-
-    <form method="post" th:action="@{/books/remove-by-id}" th:object="${bookIdToRemove}">
-        <table>
-            <tr>
-                <td>
-                    <input type="text" placeholder="id number" th:field="*{id}">
-                </td>
-                <td>
-                    <input type="submit" value="remove by id">
-                </td>
-                <td th:if="${#fields.hasErrors()}">
-                    <p style="color: red">Wrong ID or Not Found</p>
-                </td>
-            </tr>
         </table>
     </form>
 
