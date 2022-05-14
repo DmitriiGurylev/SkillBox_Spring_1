@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 
 public class BookTitleToRemove {
 
-    @NotNull
+    @NotEmpty
     private String title;
 
     public String getTitle() {

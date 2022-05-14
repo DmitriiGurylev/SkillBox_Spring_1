@@ -60,7 +60,7 @@
                     <input type="submit" value="remove by id">
                 </td>
                 <td th:if="${#fields.hasErrors()}">
-                    <h5 style="color: red">Wrong ID or Not Found</h5>
+                    <p style="color: red">Wrong ID or Not Found</p>
                 </td>
             </tr>
         </table>
@@ -75,7 +75,7 @@
                     <input type="submit" value="remove by author">
                 </td>
                 <td th:if="${#fields.hasErrors()}">
-                    <h5 style="color: red">Wrong Author name or Not Found</h5>
+                    <p style="color: red">Wrong Author name or Not Found</p>
                 </td>
             </tr>
         </table>
@@ -90,7 +90,7 @@
                     <input type="submit" value="remove by title">
                 </td>
                 <td th:if="${#fields.hasErrors()}">
-                    <h5 style="color: red">Wrong Title name or Not Found</h5>
+                    <p style="color: red">Wrong Title name or Not Found</p>
                 </td>
             </tr>
         </table>
@@ -105,7 +105,7 @@
                     <input type="submit" value="remove by size">
                 </td>
                 <td th:if="${#fields.hasErrors()}">
-                    <h5 style="color: red">Wrong Size number or Not Found</h5>
+                    <p style="color: red">Wrong Size number or Not Found</p>
                 </td>
             </tr>
         </table>
@@ -160,18 +160,18 @@
         </table>
     </form>
 
-<form method="post" th:action="@{/books/uploadFile}" enctype="multipart/form-data">
-    <table>
-        <tr>
-            <td>
-                <input type="file" name="file"/>
-            </td>
-            <td>
-                <input type="submit" value="Upload"/>
-            </td>
-        </tr>
-    </table>
-</form>
+    <form method="post" th:action="@{/books/uploadFile}" enctype="multipart/form-data">
+        <table>
+            <tr>
+                <td>
+                    <input type="file" name="file"/>
+                </td>
+                <td>
+                    <input type="submit" value="Upload"/>
+                </td>
+            </tr>
+        </table>
+    </form>
 
 
     <table id="books">
