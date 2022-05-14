@@ -113,47 +113,44 @@ public class BookShelfController {
 
     @PostMapping(value="/processFilteringForm", params="filter_by_author")
     public String filterByAuthor(@Valid BookParam bookParam, BindingResult bindingResult, Model model) {
+        model.addAttribute("book", new Book());
+        model.addAttribute("bookParam", new BookParam());
         if (bindingResult.hasErrors()) {
-            model.addAttribute("book", new Book());
-            model.addAttribute("bookParam", new BookParam());
             model.addAttribute("bookList", bookService.getAllBooks());
             logger.info("Wrong Author name or Not Found");
-            return "book_shelf";
         } else {
-            bookService.filterBooksByAuthor(bookParam.getParam());
+            model.addAttribute("bookList", bookService.filterBooksByAuthor(bookParam.getParam()));
             logger.info("Books filtered by Author name");
-            return "redirect:/books/shelf";
         }
+        return "book_shelf";
     }
 
     @PostMapping(value="/processFilteringForm", params="filter_by_title")
     public String filterByTitle(@Valid BookParam bookParam, BindingResult bindingResult, Model model) {
+        model.addAttribute("book", new Book());
+        model.addAttribute("bookParam", new BookParam());
         if (bindingResult.hasErrors()) {
-            model.addAttribute("book", new Book());
-            model.addAttribute("bookParam", new BookParam());
             model.addAttribute("bookList", bookService.getAllBooks());
             logger.info("Wrong Title name or Not Found");
-            return "book_shelf";
         } else {
-            bookService.filterBooksByTitle(bookParam.getParam());
+            model.addAttribute("bookList",   bookService.filterBooksByTitle(bookParam.getParam()));
             logger.info("Books filtered by Title name");
-            return "redirect:/books/shelf";
         }
+        return "book_shelf";
     }
 
     @PostMapping(value="/processFilteringForm", params="filter_by_size")
     public String filterBySize(@Valid BookParam bookParam, BindingResult bindingResult, Model model) {
+        model.addAttribute("book", new Book());
+        model.addAttribute("bookParam", new BookParam());
         if (bindingResult.hasErrors()) {
-            model.addAttribute("book", new Book());
-            model.addAttribute("bookParam", new BookParam());
             model.addAttribute("bookList", bookService.getAllBooks());
             logger.info("Wrong Size number or Not Found");
-            return "book_shelf";
         } else {
-            bookService.filterBooksBySize(Integer.valueOf(bookParam.getParam()));
+            model.addAttribute("bookList",  bookService.filterBooksBySize(Integer.valueOf(bookParam.getParam())));
             logger.info("Books filtered by Size number");
-            return "redirect:/books/shelf";
         }
+        return "book_shelf";
     }
 
     @PostMapping("/show-all-values")

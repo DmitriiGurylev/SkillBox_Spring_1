@@ -1,10 +1,11 @@
 package org.example.web.dto;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class BookParam {
 
-    @NotNull
+    @NotEmpty
     private String param;
 
     public String getParam() {
