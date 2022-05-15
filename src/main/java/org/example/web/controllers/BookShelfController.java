@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.beanvalidation.SpringValidatorAdapter;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
@@ -43,10 +44,11 @@ public class BookShelfController {
             model.addAttribute("book", book);
             model.addAttribute("bookParam", new BookParam());
             model.addAttribute("bookList", bookService.getAllBooks());
-            logger.info("book saved");
+            logger.info("book can't be saved");
             return "book_shelf";
         } else {
             bookService.saveBook(book);
+            logger.info("book saved");
             logger.info("current repository size: " + bookService.getAllBooks().size());
             return "redirect:/books/shelf";
         }
