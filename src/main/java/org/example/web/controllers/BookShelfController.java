@@ -53,105 +53,105 @@ public class BookShelfController {
     }
 
     @PostMapping(value="/processRemovingForm", params="remove_by_id")
-    public String removeById(@RequestParam String sourceText,  Model model) {
-        if (sourceText.isEmpty() || !checkIfInputIsDigit(sourceText)) {
+    public String removeById(@RequestParam String removeInput,  Model model) {
+        if (removeInput.isEmpty() || !checkIfInputIsDigit(removeInput)) {
             model.addAttribute("book", new Book());
-            model.addAttribute("sourceText", sourceText);
+            model.addAttribute("sourceText", removeInput);
             model.addAttribute("bookList", bookService.getAllBooks());
             logger.info("Wrong ID or Not Found");
             return "book_shelf";
         } else {
-            bookService.removeBookById(Integer.parseInt(sourceText));
+            bookService.removeBookById(Integer.parseInt(removeInput));
             logger.info("Book removed by ID");
             return "redirect:/books/shelf";
         }
     }
 
     @PostMapping(value="/processRemovingForm", params="remove_by_author")
-    public String removeByAuthor(@RequestParam String sourceText,  Model model) {
-        if (sourceText.isEmpty()) {
+    public String removeByAuthor(@RequestParam String removeInput,  Model model) {
+        if (removeInput.isEmpty()) {
             model.addAttribute("book", new Book());
-            model.addAttribute("sourceText", sourceText);
+            model.addAttribute("sourceText", removeInput);
             model.addAttribute("bookList", bookService.getAllBooks());
             logger.info("Wrong Author name or Not Found");
             return "book_shelf";
         } else {
-            bookService.removeBookByAuthor(sourceText);
+            bookService.removeBookByAuthor(removeInput);
             logger.info("Books removed by Author");
             return "redirect:/books/shelf";
         }
     }
 
     @PostMapping(value="/processRemovingForm", params="remove_by_title")
-    public String removeByTitle(@RequestParam String sourceText,  Model model) {
-        if (sourceText.isEmpty()) {
+    public String removeByTitle(@RequestParam String removeInput,  Model model) {
+        if (removeInput.isEmpty()) {
             model.addAttribute("book", new Book());
-            model.addAttribute("sourceText", sourceText);
+            model.addAttribute("sourceText", removeInput);
             model.addAttribute("bookList", bookService.getAllBooks());
             logger.info("Wrong Title name or Not Found");
             return "book_shelf";
         } else {
-            bookService.removeBookByTitle(sourceText);
+            bookService.removeBookByTitle(removeInput);
             logger.info("Books removed by Title");
             return "redirect:/books/shelf";
         }
     }
 
     @PostMapping(value="/processRemovingForm", params="remove_by_size")
-    public String removeBySize(@RequestParam String sourceText,  Model model) {
-        if (sourceText.isEmpty() || !checkIfInputIsDigit(sourceText)) {
+    public String removeBySize(@RequestParam String removeInput,  Model model) {
+        if (removeInput.isEmpty() || !checkIfInputIsDigit(removeInput)) {
             model.addAttribute("book", new Book());
-            model.addAttribute("sourceText", sourceText);
+            model.addAttribute("sourceText", removeInput);
             model.addAttribute("bookList", bookService.getAllBooks());
             logger.info("Wrong Size number or Not Found");
             return "book_shelf";
         } else {
-            bookService.removeBookBySize(Integer.valueOf(sourceText));
+            bookService.removeBookBySize(Integer.valueOf(removeInput));
             logger.info("Book removed by Size number");
             return "redirect:/books/shelf";
         }
     }
 
     @PostMapping(value="/processFilteringForm", params="filter_by_author")
-    public String filterByAuthor(@RequestParam String sourceText,  Model model) {
+    public String filterByAuthor(@RequestParam String filterInput,  Model model) {
         model.addAttribute("book", new Book());
-        model.addAttribute("sourceText", sourceText);
+        model.addAttribute("sourceText", filterInput);
         model.addAttribute("bookList", bookService.getAllBooks());
-        if (sourceText.isEmpty()) {
+        if (filterInput.isEmpty()) {
             model.addAttribute("bookList", bookService.getAllBooks());
             logger.info("Wrong Author name or Not Found");
         } else {
-            model.addAttribute("bookList", bookService.filterBooksByAuthor(sourceText));
+            model.addAttribute("bookList", bookService.filterBooksByAuthor(filterInput));
             logger.info("Books filtered by Author name");
         }
         return "book_shelf";
     }
 
     @PostMapping(value="/processFilteringForm", params="filter_by_title")
-    public String filterByTitle(@RequestParam String sourceText,  Model model) {
+    public String filterByTitle(@RequestParam String filterInput,  Model model) {
         model.addAttribute("book", new Book());
-        model.addAttribute("sourceText", sourceText);
+        model.addAttribute("sourceText", filterInput);
         model.addAttribute("bookList", bookService.getAllBooks());
-        if (sourceText.isEmpty()) {
+        if (filterInput.isEmpty()) {
             model.addAttribute("bookList", bookService.getAllBooks());
             logger.info("Wrong Title name or Not Found");
         } else {
-            model.addAttribute("bookList",   bookService.filterBooksByTitle(sourceText));
+            model.addAttribute("bookList",   bookService.filterBooksByTitle(filterInput));
             logger.info("Books filtered by Title name");
         }
         return "book_shelf";
     }
 
     @PostMapping(value="/processFilteringForm", params="filter_by_size")
-    public String filterBySize(@RequestParam String sourceText,  Model model) {
+    public String filterBySize(@RequestParam String filterInput,  Model model) {
         model.addAttribute("book", new Book());
-        model.addAttribute("sourceText", sourceText);
+        model.addAttribute("sourceText", filterInput);
         model.addAttribute("bookList", bookService.getAllBooks());
-        if (sourceText.isEmpty() || !checkIfInputIsDigit(sourceText)) {
+        if (filterInput.isEmpty() || !checkIfInputIsDigit(filterInput)) {
             model.addAttribute("bookList", bookService.getAllBooks());
             logger.info("Wrong Size number or Not Found");
         } else {
-            model.addAttribute("bookList",  bookService.filterBooksBySize(Integer.valueOf(sourceText)));
+            model.addAttribute("bookList",  bookService.filterBooksBySize(Integer.valueOf(filterInput)));
             logger.info("Books filtered by Size number");
         }
         return "book_shelf";
