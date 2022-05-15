@@ -54,9 +54,12 @@ public class BookShelfController {
 
     @PostMapping(value="/processRemovingForm", params="remove_by_id")
     public String removeById(@RequestParam String removeInput,  Model model) {
-        if (removeInput.isEmpty() || !checkIfInputIsDigit(removeInput)) {
+        if (removeInput.isEmpty() || !inputIsDigit(removeInput)) {
             model.addAttribute("book", new Book());
-            model.addAttribute("sourceText", removeInput);
+            if (!inputIsDigit(removeInput)) {
+                model.addAttribute("removeInputIdError", true);
+            }
+            model.addAttribute("removeInputId", removeInput);
             model.addAttribute("bookList", bookService.getAllBooks());
             logger.info("Wrong ID or Not Found");
             return "book_shelf";
@@ -71,7 +74,7 @@ public class BookShelfController {
     public String removeByAuthor(@RequestParam String removeInput,  Model model) {
         if (removeInput.isEmpty()) {
             model.addAttribute("book", new Book());
-            model.addAttribute("sourceText", removeInput);
+            model.addAttribute("removeInputAuthor", removeInput);
             model.addAttribute("bookList", bookService.getAllBooks());
             logger.info("Wrong Author name or Not Found");
             return "book_shelf";
@@ -86,7 +89,7 @@ public class BookShelfController {
     public String removeByTitle(@RequestParam String removeInput,  Model model) {
         if (removeInput.isEmpty()) {
             model.addAttribute("book", new Book());
-            model.addAttribute("sourceText", removeInput);
+            model.addAttribute("removeInputTitle", removeInput);
             model.addAttribute("bookList", bookService.getAllBooks());
             logger.info("Wrong Title name or Not Found");
             return "book_shelf";
@@ -99,9 +102,12 @@ public class BookShelfController {
 
     @PostMapping(value="/processRemovingForm", params="remove_by_size")
     public String removeBySize(@RequestParam String removeInput,  Model model) {
-        if (removeInput.isEmpty() || !checkIfInputIsDigit(removeInput)) {
+        if (removeInput.isEmpty() || !inputIsDigit(removeInput)) {
             model.addAttribute("book", new Book());
-            model.addAttribute("sourceText", removeInput);
+            if (!inputIsDigit(removeInput)) {
+                model.addAttribute("removeInputSizeError", true);
+            }
+            model.addAttribute("removeInputSize", removeInput);
             model.addAttribute("bookList", bookService.getAllBooks());
             logger.info("Wrong Size number or Not Found");
             return "book_shelf";
@@ -115,7 +121,7 @@ public class BookShelfController {
     @PostMapping(value="/processFilteringForm", params="filter_by_author")
     public String filterByAuthor(@RequestParam String filterInput,  Model model) {
         model.addAttribute("book", new Book());
-        model.addAttribute("sourceText", filterInput);
+        model.addAttribute("filterInputAuthor", filterInput);
         model.addAttribute("bookList", bookService.getAllBooks());
         if (filterInput.isEmpty()) {
             model.addAttribute("bookList", bookService.getAllBooks());
@@ -130,7 +136,7 @@ public class BookShelfController {
     @PostMapping(value="/processFilteringForm", params="filter_by_title")
     public String filterByTitle(@RequestParam String filterInput,  Model model) {
         model.addAttribute("book", new Book());
-        model.addAttribute("sourceText", filterInput);
+        model.addAttribute("filterInputTitle", filterInput);
         model.addAttribute("bookList", bookService.getAllBooks());
         if (filterInput.isEmpty()) {
             model.addAttribute("bookList", bookService.getAllBooks());
@@ -145,9 +151,12 @@ public class BookShelfController {
     @PostMapping(value="/processFilteringForm", params="filter_by_size")
     public String filterBySize(@RequestParam String filterInput,  Model model) {
         model.addAttribute("book", new Book());
-        model.addAttribute("sourceText", filterInput);
+        model.addAttribute("filterInputSize", filterInput);
         model.addAttribute("bookList", bookService.getAllBooks());
-        if (filterInput.isEmpty() || !checkIfInputIsDigit(filterInput)) {
+        if (filterInput.isEmpty() || !inputIsDigit(filterInput)) {
+            if (!inputIsDigit(filterInput)) {
+                model.addAttribute("filterInputSizeError", true);
+            }
             model.addAttribute("bookList", bookService.getAllBooks());
             logger.info("Wrong Size number or Not Found");
         } else {
@@ -187,11 +196,11 @@ public class BookShelfController {
         return "redirect:/books/shelf";
     }
 
-    private boolean checkIfInputIsDigit(String input) {
+    private boolean inputIsDigit(String input) {
         return input.chars().allMatch(Character::isDigit);
     }
 
-    private boolean checkIfInputIsLetter(String input) {
+    private boolean inputIsLetter(String input) {
         return input.chars().allMatch(Character::isLetter);
     }
 
