@@ -63,15 +63,19 @@
             <tr>
                 <td>
                     <input type="submit" value="remove by id" name="remove_by_id">
+                    <p th:if="${#fields.hasErrors()}">ID is Not Valid or Not Found</p>
                 </td>
                 <td>
                     <input type="submit" value="remove by author" name="remove_by_author">
+                    <p th:if="${#fields.hasErrors()}">Author name is Not Valid or Not Found</p>
                 </td>
                 <td>
                     <input type="submit" value="remove by title" name="remove_by_title">
+                    <p th:if="${#fields.hasErrors()}">Title name is Not Valid or Not Found</p>
                 </td>
                 <td>
                     <input type="submit" value="remove by size" name="remove_by_size">
+                    <p th:if="${#fields.hasErrors()}">Size is Not Valid or Not Found</p>
                 </td>
             </tr>
             </tbody>
@@ -89,12 +93,15 @@
             <tr>
                 <td>
                     <input type="submit" value="filter by author" name="filter_by_author">
+                    <p th:if="${#fields.hasErrors()}">Author name is Not Valid or Not Found</p>
                 </td>
                 <td>
                     <input type="submit" value="filter by title" name="filter_by_title">
+                    <p th:if="${#fields.hasErrors()}">Title name is Not Valid or Not Found</p>
                 </td>
                 <td>
                     <input type="submit" value="filter by size" name="filter_by_size">
+                    <p th:if="${#fields.hasErrors()}">Size is Not Valid or Not Found</p>
                 </td>
             </tr>
             </tbody>

@@ -43,6 +43,7 @@ public class BookShelfController {
             model.addAttribute("book", book);
             model.addAttribute("bookParam", new BookParam());
             model.addAttribute("bookList", bookService.getAllBooks());
+            logger.info("book saved");
             return "book_shelf";
         } else {
             bookService.saveBook(book);
@@ -55,7 +56,7 @@ public class BookShelfController {
     public String removeById(@Valid BookParam bookParam, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("book", new Book());
-            model.addAttribute("bookParam", new BookParam());
+            model.addAttribute("bookParam", bookParam);
             model.addAttribute("bookList", bookService.getAllBooks());
             logger.info("Wrong ID or Not Found");
             return "book_shelf";
@@ -70,7 +71,7 @@ public class BookShelfController {
     public String removeByAuthor(@Valid BookParam bookParam, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("book", new Book());
-            model.addAttribute("bookParam", new BookParam());
+            model.addAttribute("bookParam", bookParam);
             model.addAttribute("bookList", bookService.getAllBooks());
             logger.info("Wrong Author name or Not Found");
             return "book_shelf";
@@ -85,7 +86,7 @@ public class BookShelfController {
     public String removeByTitle(@Valid BookParam bookParam, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("book", new Book());
-            model.addAttribute("bookParam", new BookParam());
+            model.addAttribute("bookParam", bookParam);
             model.addAttribute("bookList", bookService.getAllBooks());
             logger.info("Wrong Title name or Not Found");
             return "book_shelf";
@@ -100,7 +101,7 @@ public class BookShelfController {
     public String removeBySize(@Valid BookParam bookParam, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("book", new Book());
-            model.addAttribute("bookParam", new BookParam());
+            model.addAttribute("bookParam", bookParam);
             model.addAttribute("bookList", bookService.getAllBooks());
             logger.info("Wrong Size number or Not Found");
             return "book_shelf";
@@ -114,7 +115,7 @@ public class BookShelfController {
     @PostMapping(value="/processFilteringForm", params="filter_by_author")
     public String filterByAuthor(@Valid BookParam bookParam, BindingResult bindingResult, Model model) {
         model.addAttribute("book", new Book());
-        model.addAttribute("bookParam", new BookParam());
+        model.addAttribute("bookParam", bookParam);
         if (bindingResult.hasErrors()) {
             model.addAttribute("bookList", bookService.getAllBooks());
             logger.info("Wrong Author name or Not Found");
@@ -128,7 +129,7 @@ public class BookShelfController {
     @PostMapping(value="/processFilteringForm", params="filter_by_title")
     public String filterByTitle(@Valid BookParam bookParam, BindingResult bindingResult, Model model) {
         model.addAttribute("book", new Book());
-        model.addAttribute("bookParam", new BookParam());
+        model.addAttribute("bookParam", bookParam);
         if (bindingResult.hasErrors()) {
             model.addAttribute("bookList", bookService.getAllBooks());
             logger.info("Wrong Title name or Not Found");
@@ -142,7 +143,7 @@ public class BookShelfController {
     @PostMapping(value="/processFilteringForm", params="filter_by_size")
     public String filterBySize(@Valid BookParam bookParam, BindingResult bindingResult, Model model) {
         model.addAttribute("book", new Book());
-        model.addAttribute("bookParam", new BookParam());
+        model.addAttribute("bookParam", bookParam);
         if (bindingResult.hasErrors()) {
             model.addAttribute("bookList", bookService.getAllBooks());
             logger.info("Wrong Size number or Not Found");
@@ -161,6 +162,9 @@ public class BookShelfController {
 
     @PostMapping("/uploadFile")
     public String uploadFile(@RequestParam("file")MultipartFile file) throws Exception {
+        if (file.getOriginalFilename().equals("")) {
+            return "redirect:/books/shelf";
+        }
         String name = file.getOriginalFilename();
         byte[] bytes = file.getBytes();
 

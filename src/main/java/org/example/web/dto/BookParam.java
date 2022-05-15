@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 public class BookParam {
 
     @NotEmpty
+    @NotNull
     private String param;
 
     public String getParam() {
