@@ -52,56 +52,56 @@
         </table>
     </form>
 
-    <form method="post" th:action="@{/books/processRemovingForm}" th:object="${bookParam}">
+    <form method="post" th:action="@{/books/processRemovingForm}">
         <table>
             <tbody>
             <tr>
                 <td colspan="4" align="center">
-                    <input type="text" placeholder="id/author/title/size" th:field="*{param}" style='width: 100%'>
+                    <input type="text" placeholder="id / author / title / size" style='width: 100%' th:value="${sourceText}" name="sourceText">
                 </td>
             </tr>
             <tr>
                 <td>
                     <input type="submit" value="remove by id" name="remove_by_id">
-                    <p th:if="${#fields.hasErrors()}">ID is Not Valid or Not Found</p>
+<!--                    <p th:if="${sourceText.isEmpty()}">ID is Not Valid or Not Found</p>-->
                 </td>
                 <td>
                     <input type="submit" value="remove by author" name="remove_by_author">
-                    <p th:if="${#fields.hasErrors()}">Author name is Not Valid or Not Found</p>
+<!--                    <p th:if="${#fields.hasErrors()}">Author name is Not Valid or Not Found</p>-->
                 </td>
                 <td>
                     <input type="submit" value="remove by title" name="remove_by_title">
-                    <p th:if="${#fields.hasErrors()}">Title name is Not Valid or Not Found</p>
+<!--                    <p th:if="${#fields.hasErrors()}">Title name is Not Valid or Not Found</p>-->
                 </td>
                 <td>
                     <input type="submit" value="remove by size" name="remove_by_size">
-                    <p th:if="${#fields.hasErrors()}">Size is Not Valid or Not Found</p>
+<!--                    <p th:if="${#fields.hasErrors()}">Size is Not Valid or Not Found</p>-->
                 </td>
             </tr>
             </tbody>
         </table>
     </form>
 
-    <form method="post" th:action="@{/books/processFilteringForm}" th:object="${bookParam}">
+    <form method="post" th:action="@{/books/processFilteringForm}">
         <table>
             <tbody>
             <tr>
                 <td colspan="4" align="center">
-                    <input type="text" placeholder="id/author/title/size" th:field="*{param}" style='width: 100%'>
+                    <input type="text" placeholder="id / author / title / size" style='width: 100%' th:value="${sourceText}" name="sourceText">
                 </td>
             </tr>
             <tr>
                 <td>
                     <input type="submit" value="filter by author" name="filter_by_author">
-                    <p th:if="${#fields.hasErrors()}">Author name is Not Valid or Not Found</p>
+<!--                    <p th:if="${#fields.hasErrors()}">Author name is Not Valid or Not Found</p>-->
                 </td>
                 <td>
                     <input type="submit" value="filter by title" name="filter_by_title">
-                    <p th:if="${#fields.hasErrors()}">Title name is Not Valid or Not Found</p>
+<!--                    <p th:if="${#fields.hasErrors()}">Title name is Not Valid or Not Found</p>-->
                 </td>
                 <td>
                     <input type="submit" value="filter by size" name="filter_by_size">
-                    <p th:if="${#fields.hasErrors()}">Size is Not Valid or Not Found</p>
+<!--                    <p th:if="${#fields.hasErrors()}">Size is Not Valid or Not Found</p>-->
                 </td>
             </tr>
             </tbody>
