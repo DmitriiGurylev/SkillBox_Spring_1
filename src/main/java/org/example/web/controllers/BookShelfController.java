@@ -151,7 +151,7 @@ public class BookShelfController {
     }
 
     @PostMapping(value="/processFilteringForm", params="filter_by_size")
-    public String filterBySize(@RequestParam String filterInput,  Model model) {
+    public String filterBySize(@RequestParam String filterInput, Model model) {
         model.addAttribute("book", new Book());
         model.addAttribute("filterInputSize", filterInput);
         model.addAttribute("bookList", bookService.getAllBooks());
@@ -175,9 +175,13 @@ public class BookShelfController {
     }
 
     @PostMapping("/uploadFile")
-    public String uploadFile(@RequestParam("file")MultipartFile file) throws Exception {
+    public String uploadFile(@RequestParam("file")MultipartFile file,  Model model) throws Exception {
         if (file.getOriginalFilename().equals("")) {
-            return "redirect:/books/shelf";
+            model.addAttribute("emptyFile", true);
+            model.addAttribute("book", new Book());
+            model.addAttribute("bookParam", new BookParam());
+            model.addAttribute("bookList", bookService.getAllBooks());
+            return "book_shelf";
         }
         String name = file.getOriginalFilename();
         byte[] bytes = file.getBytes();

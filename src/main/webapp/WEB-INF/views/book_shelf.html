@@ -130,6 +130,11 @@
                     <input type="submit" value="Upload"/>
                 </td>
             </tr>
+            <tr th:if="${emptyFile == true}">
+                <td>
+                    <p>Choose a File to Upload</p>
+                </td>
+            </tr>
         </table>
     </form>
 

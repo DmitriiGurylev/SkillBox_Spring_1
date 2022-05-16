@@ -2,6 +2,7 @@ package org.example.web.dto;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class Book {
     private Integer id;
@@ -10,6 +11,7 @@ public class Book {
     @NotEmpty
     private String title;
     @Digits(integer = 4, fraction = 0)
+    @NotNull
     private Integer size;
 
     public int getId() {
