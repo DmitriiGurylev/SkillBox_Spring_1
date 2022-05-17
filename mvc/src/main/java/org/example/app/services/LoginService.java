@@ -1,7 +1,7 @@
-package main.java.org.example.app.services;
+package org.example.app.services;
 
 import org.apache.log4j.Logger;
-import main.java.org.example.web.dto.LoginForm;
+import org.example.web.dto.LoginForm;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.stereotype.Service;

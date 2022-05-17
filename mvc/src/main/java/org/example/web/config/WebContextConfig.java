@@ -1,4 +1,4 @@
-package main.java.org.example.web.config;
+package org.example.web.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

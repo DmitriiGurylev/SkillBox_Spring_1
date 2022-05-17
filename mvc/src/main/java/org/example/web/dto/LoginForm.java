@@ -1,4 +1,4 @@
-package main.java.org.example.web.dto;
+package org.example.web.dto;
 
 public class LoginForm {
 

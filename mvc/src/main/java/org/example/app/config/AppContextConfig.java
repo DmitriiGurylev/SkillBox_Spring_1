@@ -1,6 +1,6 @@
-package main.java.org.example.app.config;
+package org.example.app.config;
 
-import main.java.org.example.app.services.IdProvider;
+import org.example.app.services.IdProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

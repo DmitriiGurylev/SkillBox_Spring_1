@@ -1,8 +1,8 @@
-package main.java.org.example.web.controllers;
+package org.example.web.controllers;
 
 import org.apache.log4j.Logger;
+import org.example.app.exceptions.BookShelfLoginException;
 import org.example.app.services.LoginService;
-import main.java.org.example.exceptions.BookShelfLoginException;
 import org.example.web.dto.LoginForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,4 +1,4 @@
-package main.java.org.example;
+package org.example;
 
 import org.apache.log4j.Logger;
 import org.example.app.config.AppContextConfig;

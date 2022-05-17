@@ -1,4 +1,4 @@
-package main.java.org.example.web.controllers;
+package org.example.web.controllers;
 
 import org.apache.log4j.Logger;
 import org.example.app.services.BookService;

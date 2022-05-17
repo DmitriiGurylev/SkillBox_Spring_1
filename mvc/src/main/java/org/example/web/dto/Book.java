@@ -1,4 +1,4 @@
-package main.java.org.example.web.dto;
+package org.example.web.dto;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;

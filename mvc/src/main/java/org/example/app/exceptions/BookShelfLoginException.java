@@ -1,4 +1,4 @@
-package main.java.org.example.app.exceptions;
+package org.example.app.exceptions;
 
 public class BookShelfLoginException extends Exception {
 
