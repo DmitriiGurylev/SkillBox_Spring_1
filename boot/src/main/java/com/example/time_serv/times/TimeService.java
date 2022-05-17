@@ -19,6 +19,7 @@ public class TimeService {
 
     public void printCurrentTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(timeProviderProperties.getFormat());
+        Logger.getLogger(TimeService.class.getName()).info(timeProviderProperties.getDescpiption());
         Logger.getLogger(TimeService.class.getName()).info("current time: " + dateFormat.format(new Date()));
     }
 

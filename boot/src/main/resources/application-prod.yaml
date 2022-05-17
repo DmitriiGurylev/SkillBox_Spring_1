@@ -1,0 +1,4 @@
+tprov:
+  profile: YAML production
+  descpiption: YAML profile rules now
+  format: yyyyy.MMMMM.dd GGG hh:mm aaa
