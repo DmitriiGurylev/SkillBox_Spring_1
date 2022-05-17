@@ -1,6 +1,8 @@
-package com.example.time_serv.times;
+package com.example.external;
 
+import com.example.time_serv.times.TimeProviderProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -8,7 +10,8 @@ import java.util.Date;
 import java.util.logging.Logger;
 
 @Service
-public class TimeService {
+@ConditionalOnProperty(value = "spring.profiles.active", havingValue = "prod", matchIfMissing = true)
+public class TimeService implements TimeServiceInterface {
 
     private TimeProviderProperties timeProviderProperties;
 
